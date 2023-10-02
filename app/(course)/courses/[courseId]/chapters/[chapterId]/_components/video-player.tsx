@@ -56,13 +56,10 @@ export const VideoPlayer = ({
     }
   }
 
+  //const playerUrl = `https://player.cloudinary.com/embed/?public_id=${encodeURIComponent(playbackId)}&cloud_name=dn9djuqe5&player[colors][accent]=%230c4dff&player[showJumpControls]=true&player[hideContextMenu]=false&player[floatingWhenNotVisible]=false&player[seekThumbnails]=false`;
+  const playerUrl = `https://player.cloudinary.com/embed/?public_id=${encodeURIComponent(playbackId)}&cloud_name=dn9djuqe5&player[colors][accent]=%230ca5ff&player[logoOnclickUrl]=http%3A%2F%2Flocalhost%3A3000&player[logoImageUrl]=https%3A%2F%2Fres.cloudinary.com%2Fdn9djuqe5%2Fimage%2Ffetch%2Fh_25%2Fhttps%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F1216%2F1216895.png&player[showJumpControls]=true&source[poster]=https%3A%2F%2Fres.cloudinary.com%2Fdn9djuqe5%2Fimage%2Fupload%2Fsqixosr8footr8gu6ssh.jpg`
   return (
     <div className="relative aspect-video">
-      {!isReady && !isLocked && (
-        <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
-          <Loader2 className="h-8 w-8 animate-spin text-secondary" />
-        </div>
-      )}
       {isLocked && (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-800 flex-col gap-y-2 text-secondary">
           <Lock className="h-8 w-8" />
@@ -71,17 +68,16 @@ export const VideoPlayer = ({
           </p>
         </div>
       )}
+      
       {!isLocked && (
-        <MuxPlayer
-          title={title}
-          className={cn(
-            !isReady && "hidden"
-          )}
-          onCanPlay={() => setIsReady(true)}
-          onEnded={onEnd}
-          autoPlay
-          playbackId={playbackId}
-        />
+        <iframe
+          src={playerUrl}
+          width="640"
+          height="360"
+          style={{ height: 'auto', width: '100%', aspectRatio: '640 / 360' }}
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+          allowFullScreen
+        ></iframe>
       )}
     </div>
   )

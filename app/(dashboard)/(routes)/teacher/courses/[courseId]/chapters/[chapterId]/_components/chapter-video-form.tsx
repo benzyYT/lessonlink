@@ -1,23 +1,21 @@
-"use client";
-
+"use client"
 import * as z from "zod";
 import axios from "axios";
-import MuxPlayer from "@mux/mux-player-react";
 import { Pencil, PlusCircle, Video } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Chapter, MuxData } from "@prisma/client";
+import { Chapter } from "@prisma/client";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 
 interface ChapterVideoFormProps {
-  initialData: Chapter & { muxData?: MuxData | null };
+  initialData: Chapter;
   courseId: string;
   chapterId: string;
-};
+}
 
 const formSchema = z.object({
   videoUrl: z.string().min(1),
@@ -43,7 +41,7 @@ export const ChapterVideoForm = ({
     } catch {
       toast.error("Something went wrong");
     }
-  }
+  };
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
@@ -74,9 +72,14 @@ export const ChapterVideoForm = ({
           </div>
         ) : (
           <div className="relative aspect-video mt-2">
-            <MuxPlayer
-              playbackId={initialData?.muxData?.playbackId || ""}
-            />
+            <iframe
+              src={`https://player.cloudinary.com/embed/?public_id=${encodeURIComponent(initialData.videoUrl)}&cloud_name=dn9djuqe5&player[colors][accent]=%230ca5ff&player[logoOnclickUrl]=http%3A%2F%2Flocalhost%3A3000&player[logoImageUrl]=https%3A%2F%2Fres.cloudinary.com%2Fdn9djuqe5%2Fimage%2Ffetch%2Fh_25%2Fhttps%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F1216%2F1216895.png&player[showJumpControls]=true&source[poster]=https%3A%2F%2Fres.cloudinary.com%2Fdn9djuqe5%2Fimage%2Fupload%2Fsqixosr8footr8gu6ssh.jpg`}
+              width="640"
+              height="360"
+              style={{ height: 'auto', width: '100%', aspectRatio: '640 / 360' }}
+              allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+              allowFullScreen
+            ></iframe>
           </div>
         )
       )}
@@ -91,15 +94,15 @@ export const ChapterVideoForm = ({
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-           Upload this chapter&apos;s video
+            Upload this chapter&apos;s video
           </div>
         </div>
       )}
       {initialData.videoUrl && !isEditing && (
         <div className="text-xs text-muted-foreground mt-2">
-          Videos can take a few minutes to process. Refresh the page if video does not appear.
+          Videos can take a few minutes to process. Refresh the page if the video does not appear.
         </div>
       )}
     </div>
-  )
-}
+  );
+};
