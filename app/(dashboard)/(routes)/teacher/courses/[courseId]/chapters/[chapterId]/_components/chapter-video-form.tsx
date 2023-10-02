@@ -72,7 +72,6 @@ export const ChapterVideoForm = ({
           </div>
         ) : (
           <div className="relative aspect-video mt-2">
-            
             <iframe
               src={`https://player.cloudinary.com/embed/?public_id=${encodeURIComponent(initialData.videoUrl)}&cloud_name=dn9djuqe5&player[colors][accent]=%230ca5ff&player[logoOnclickUrl]=http%3A%2F%2Flocalhost%3A3000&player[logoImageUrl]=https%3A%2F%2Fres.cloudinary.com%2Fdn9djuqe5%2Fimage%2Ffetch%2Fh_25%2Fhttps%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F1216%2F1216895.png&player[showJumpControls]=true&source[poster]=https%3A%2F%2Fres.cloudinary.com%2Fdn9djuqe5%2Fimage%2Fupload%2Fsqixosr8footr8gu6ssh.jpg`}
               width="640"
