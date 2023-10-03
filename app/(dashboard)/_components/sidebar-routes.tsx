@@ -8,12 +8,12 @@ import { SidebarItem } from "./sidebar-item";
 const guestRoutes = [
   {
     icon: Layout,
-    label: "Dashboard",
+    label: "Übersicht",
     href: "/",
   },
   {
     icon: Compass,
-    label: "Browse",
+    label: "Kurse",
     href: "/search",
   },
 ];
